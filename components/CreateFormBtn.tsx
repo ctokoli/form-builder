@@ -3,7 +3,7 @@
 import React from 'react'
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription  } from './ui/dialog'
 import { Button } from "./ui/button";
-import { BsFileEarMarkPlus } from "react-icons/bs";
+import { BsFileEarmarkPlus } from "react-icons/bs";
 import { ImSpinner2 } from "react-icons/im";
 import { Label } from "./ui/label";
 import {
@@ -14,8 +14,25 @@ import {
     FormLabel,
     FormMessage,
 } from "./ui/form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { useForm } from 'react-hook-form';
+
+const formSchema = z.object({
+    name: z.string().min(4, "Name must be at least 4 characters"),
+    description: z.string().optional(),
+})
+
+type formSchemaType = z.infer<typeof formSchema>; 
 
 export default function CreateFormBtn() {
+    const form = useForm<formSchemaType>({
+        resolver: zodResolver(formSchema),
+    });
+
+    function handleSubmit(values: formSchemaType) {
+        console.log(values);
+    }
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -28,8 +45,13 @@ export default function CreateFormBtn() {
                         Create a new form to start collecting responses
                     </DialogDescription>
                 </DialogHeader>
-                <div className="flex flex-col gap-4"></div>
+                <Form {...form} >
+                    <form onSubmit={form.handleSubmit(handleSubmit)} >
+
+                    </form>
+                </Form>
             </DialogContent>
         </Dialog>
     )
 }
+ 
