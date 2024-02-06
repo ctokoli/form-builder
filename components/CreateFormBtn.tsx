@@ -5,6 +5,7 @@ import React from 'react'
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from './ui/dialog'
 import { Button } from './ui/button'
 import { ImSpinner2 } from 'react-icons/im'
+import { BsFileEarmarkPlus } from 'react-icons/bs'
 import {
   Form,
   FormControl,
@@ -47,7 +48,11 @@ export default function CreateFormBtn (): React.JSX.Element {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button> Create New Form</Button>
+        <Button
+          variant={'outline'}
+          className="group border border-primary/20 h-[190px] items-center justify-center flex-col hover:border-primary hover:cursor-pointerborder-dashed gap-4">
+          <BsFileEarmarkPlus className='h-8 w-8 text-muted-foreground group-hover:text-primary' />
+          Create New Form</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
