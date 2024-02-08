@@ -21,21 +21,23 @@ import { Textarea } from './ui/textarea'
 import { toast } from './ui/use-toast'
 import { formSchema, type formSchemaType } from '@/schemas/form'
 import { CreateForm } from '@/actions/form'
+import { useRouter } from 'next/navigation'
 
 export default function CreateFormBtn (): React.JSX.Element {
+  const router = useRouter()
   const form = useForm<formSchemaType>({
     resolver: zodResolver(formSchema)
   })
 
   async function onSubmit (values: formSchemaType): Promise<void> {
     try {
-      const formID = await CreateForm(values)
+      const formId = await CreateForm(values)
       toast({
         title: 'Success',
         description: 'Form created successfully',
         variant: 'default'
       })
-      console.log(formID)
+      router.push(`/builder/${formId}`)
     } catch (error) {
       toast({
         title: 'Error',
