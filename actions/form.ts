@@ -3,6 +3,7 @@
 import { currentUser } from '@clerk/nextjs'
 import prisma from './../lib/prisma'
 import { formSchema, type formSchemaType } from '@/schemas/form'
+import { type Form } from '@prisma/client'
 
 class UserNotFoundErr extends Error {}
 
@@ -57,7 +58,7 @@ export async function CreateForm (data: formSchemaType): Promise<number> {
       name,
       description,
       userId: user.id,
-      content: '' // Add the 'content' property with an empty string value
+      content: ''
     }
   })
 
@@ -66,4 +67,36 @@ export async function CreateForm (data: formSchemaType): Promise<number> {
   }
 
   return newForm.id
+}
+
+export async function GetForms (): Promise<Form[]> {
+  const user = await currentUser()
+  if (user == null) throw new UserNotFoundErr()
+
+  return await prisma.form.findMany({
+    where: {
+      userId: user.id
+    },
+    orderBy: {
+      createdAt: 'desc'
+    }
+  })
+}
+
+export async function GetFormById (id: number): Promise<Form> {
+  const user = await currentUser()
+  if (user == null) throw new UserNotFoundErr()
+
+  const form = await prisma.form.findUnique({
+    where: {
+      id,
+      userId: user.id
+    }
+  })
+
+  if (form == null) {
+    throw new Error('Form not found')
+  }
+
+  return form
 }
