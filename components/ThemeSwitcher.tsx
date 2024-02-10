@@ -12,7 +12,7 @@ export default function ThemeSwitcher (): React.JSX.Element | null {
   useEffect(() => { setMounted(true) }, [])
   if (!mounted) return null
   return (
-        <div>
+        <div className='sm:pt-3'>
             <Tabs defaultValue={theme}>
                 <TabsList className='[&>*]:p-2'>
                     <TabsTrigger value='light' onClick={() => { setTheme('light') }}>
