@@ -1,4 +1,5 @@
 import { GetFormById } from '@/actions/form'
+import FormBuilder from '@/components/FormBuilder'
 import React from 'react'
 
 async function BuilderPage ({ params }: { params: { id: string } }): Promise<React.JSX.Element> {
@@ -8,7 +9,9 @@ async function BuilderPage ({ params }: { params: { id: string } }): Promise<Rea
   if (form == null) { throw new Error('form not found') }
 
   return (
-    <div>{form.name}</div>
+    <div className='w-full'>
+      <FormBuilder form={form} />
+    </div>
   )
 }
 
