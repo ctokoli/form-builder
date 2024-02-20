@@ -3,7 +3,7 @@
 import React, { type ReactNode, createContext, useState } from 'react'
 import { type FormElementInstance } from '../FormElements'
 
-interface DesignerContextType {
+export interface DesignerContextType {
   elements: FormElementInstance[]
   addElement: (index: number, element: FormElementInstance) => void
 }
@@ -14,6 +14,7 @@ export default function DesignerContextProvider ({
   children
 }: { children: ReactNode }): JSX.Element {
   const [elements, setElements] = useState<FormElementInstance[]>([])
+
   const addElement = (index: number, element: FormElementInstance): void => {
     setElements((prev) => {
       const newElements = [...prev]
