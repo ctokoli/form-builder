@@ -4,8 +4,11 @@ import React from 'react'
 import DesignerSidebar from './DesignerSidebar'
 import { useDroppable } from '@dnd-kit/core'
 import { cn } from '@/lib/utils'
+import useDesigner from './hooks/useDesigner'
 
 export default function Designer (): JSX.Element {
+  const { elements, addElement } = useDesigner()
+
   const droppable = useDroppable({
     id: 'designer-drop-area',
     data: {
