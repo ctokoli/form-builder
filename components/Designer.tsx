@@ -23,15 +23,12 @@ export default function Designer (): JSX.Element {
     onDragEnd (event) {
       const { active, over } = event
       if (active == null || over == null) return
-
       const isDesignerBtnElement = active.data?.current?.isDesignerBtnElement
-
       if (isDesignerBtnElement != null) {
         const type = active.data?.current?.type
         const newElement = FormElements[type as ElementsType].construct(
           idGenerator()
         )
-
         addElement(0, newElement)
       }
     }
@@ -46,13 +43,12 @@ export default function Designer (): JSX.Element {
                 {droppable.isOver && (<div className='p-4 w-full'>
                   <div className="h-[120px] rounded-md bg-primary/20"></div>
                 </div>)}
-                {elements.length !== 0 && <div className='flex flex-col w-full gap-2 p-4'>
+                {elements.length !== 0 && <div className='flex flex-col text-backgound w-full gap-2 p-4'>
                   {elements.map((element) => (
                     <DesignerElementWrapper key={element.id} element={element} />
                   ))}
                   </div>}
             </div>
-
         </div>
         <DesignerSidebar />
     </div>
