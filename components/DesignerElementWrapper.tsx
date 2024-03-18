@@ -6,8 +6,9 @@ import { BiSolidTrash } from 'react-icons/bi'
 import useDesigner from './hooks/useDesigner'
 import { cn } from '@/lib/utils'
 
-export default function DesignerElementWrapper ({ element }: { element: FormElementInstance }): JSX.Element {
-  const { removeElement, setSelectedElement, selectedElement } = useDesigner()
+export default function DesignerElementWrapper ({ element, selectedElement, setSelectedElement }:
+{ element: FormElementInstance, selectedElement: FormElementInstance | null, setSelectedElement: React.Dispatch<React.SetStateAction<FormElementInstance | null>> }): JSX.Element {
+  const { removeElement } = useDesigner()
   const [mouseIsOver, setMouseIsOver] = useState<boolean>(false)
 
   const topHalf = useDroppable({
@@ -38,6 +39,8 @@ export default function DesignerElementWrapper ({ element }: { element: FormElem
   })
 
   if (draggable === null) return null
+
+  console.log('SELECTED EL', selectedElement)
   const DesignerElement = FormElements[element.type].designerComponent
   return (
     <div
@@ -50,6 +53,10 @@ export default function DesignerElementWrapper ({ element }: { element: FormElem
       }}
       onMouseLeave={() => {
         setMouseIsOver(false)
+      }}
+      onClick={(e) => {
+        e.stopPropagation()
+        setSelectedElement(element)
       }}
      >
       <div
@@ -67,7 +74,8 @@ export default function DesignerElementWrapper ({ element }: { element: FormElem
             <Button
               className='flex justify-items-center h-full border rounded-md rounded-l-none bg-red-500'
               variant={'outline'}
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation()
                 removeElement(element.id)
               }}
             >
