@@ -5,6 +5,7 @@ import React from 'react'
 import { type FormElement, type ElementsType, type FormElementInstance } from '../FormElements'
 import { MdTextFields } from 'react-icons/md'
 import DesignerComponent from './DesignerComponent'
+import PropertiesComponent from './PropertiesComponent'
 
 const type: ElementsType = 'TextField'
 
@@ -27,8 +28,8 @@ export const TextFieldFormElement: FormElement = {
     label: 'Text Field'
   },
   designerComponent: DesignerComponent,
-  formComponent: () => <div>form Component</div>,
-  propertiesComponent: () => <div>Properties Component</div>
+  formComponent: () => <div>Form Component</div>,
+  propertiesComponent: PropertiesComponent
 
 }
 
