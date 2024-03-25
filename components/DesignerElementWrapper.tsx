@@ -40,7 +40,6 @@ export default function DesignerElementWrapper ({ element, selectedElement, setS
 
   if (draggable === null) return null
 
-  console.log('SELECTED EL', selectedElement)
   const DesignerElement = FormElements[element.type].designerComponent
   return (
     <div
